@@ -19,7 +19,6 @@ const App: React.FC = () => {
 
     const toggleHandler = (id: number) => {
         setTodos(prev => prev.map(todo => {
-            console.log(todo.completed);
             if (todo.id === id) {
                 return {
                     ...todo,
@@ -27,13 +26,15 @@ const App: React.FC = () => {
                 }
 
             }
-            console.log(todo.completed);
             return todo;
         }));
     }
 
     const removeHandler = (id: number) => {
-        setTodos(prev => prev.filter(todo => todo.id !== id));
+        const shouldConfirm = window.confirm('Вы уверены, что хотите удалить элемент?');
+        if (shouldConfirm) {
+            setTodos(prev => prev.filter(todo => todo.id !== id));
+        }
     }
 
     return (
